@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#101827"><meta name="description" content="A private, local-first office attendance and weekly working-hours tracker."><meta name="application-name" content="Office Hours Tracker"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="Office Hours"><link rel="manifest" href="./manifest.webmanifest"><link rel="icon" href="./icons/icon-192.png" type="image/png"><link rel="apple-touch-icon" href="./icons/icon-192.png"><title>Office Hours Tracker</title>
+<style>
+:root{--bg:#f4f6fa;--panel:#fff;--text:#182230;--muted:#657184;--line:#e3e8ef;--accent:#315ce8;--accent2:#eaf0ff;--good:#13845b;--warn:#a65d00;--bad:#c33e48;--shadow:0 8px 28px #17233b0b}
+[data-theme=dark]{--bg:#0d1320;--panel:#151e2d;--text:#edf2fa;--muted:#9eabc0;--line:#2b3749;--accent:#8ca7ff;--accent2:#202d4b;--good:#58d6a3;--warn:#ffc36b;--bad:#ff828a;--shadow:0 8px 28px #0002}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.45 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}button,input,select{font:inherit}button{cursor:pointer;border:0;border-radius:12px;padding:12px 15px;font-weight:650}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #7191ff;outline-offset:2px}.primary{background:var(--accent);color:white}.secondary{background:var(--accent2);color:var(--text)}.ghost{background:transparent;color:var(--text);border:1px solid var(--line)}.danger{color:var(--bad);background:transparent;border:1px solid var(--line)}header{position:sticky;top:0;z-index:5;background:var(--panel);border-bottom:1px solid var(--line);padding:calc(12px + env(safe-area-inset-top)) 16px 12px}.head{max-width:1000px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:10px}.brand{font-size:18px;font-weight:800;letter-spacing:-.4px}.brand small{display:block;font-size:11px;color:var(--muted);font-weight:600;letter-spacing:.7px;text-transform:uppercase}.wrap{max-width:1000px;margin:auto;padding:18px 14px 100px}.nav{display:flex;gap:6px;overflow:auto;padding:6px;background:var(--panel);border:1px solid var(--line);border-radius:15px;margin-bottom:16px}.nav button{white-space:nowrap;background:transparent;color:var(--muted);padding:10px 13px}.nav button.active{background:var(--accent2);color:var(--text)}.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:14px}.card{grid-column:span 12;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:17px;box-shadow:var(--shadow);min-width:0}.span6{grid-column:span 6}.span4{grid-column:span 4}.eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);font-weight:750}.big{font-size:clamp(29px,7vw,42px);font-weight:850;letter-spacing:-1.5px;line-height:1.15;margin:8px 0}.muted{color:var(--muted)}.small{font-size:12px}.status{display:inline-flex;border-radius:999px;padding:5px 9px;background:var(--accent2);font-size:12px;font-weight:750}.status.good{color:var(--good);background:color-mix(in srgb,var(--good) 12%,var(--panel))}.status.warn{color:var(--warn);background:color-mix(in srgb,var(--warn) 12%,var(--panel))}.status.bad{color:var(--bad);background:color-mix(in srgb,var(--bad) 12%,var(--panel))}.progress{height:10px;background:var(--line);border-radius:99px;overflow:hidden;margin:13px 0}.progress>div{height:100%;width:0;background:var(--accent);border-radius:99px;transition:width .2s}.row{display:flex;align-items:center;justify-content:space-between;gap:12px}.metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:14px}.metric{background:var(--bg);border-radius:12px;padding:12px}.metric strong{display:block;font-size:19px;margin-top:4px}.formgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:15px}label{display:block;font-size:13px;font-weight:700;margin-bottom:6px}input,select{width:100%;min-height:46px;padding:11px 12px;border:1px solid var(--line);border-radius:11px;background:var(--bg);color:var(--text)}.field.full{grid-column:1/-1}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.sectiontitle{font-size:18px;font-weight:800;margin:0 0 12px}.list{display:flex;flex-direction:column}.record{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 0;border-bottom:1px solid var(--line);cursor:pointer}.record:last-child{border-bottom:0}.record:focus{outline:2px solid var(--accent)}.record strong{display:block}.record .right{text-align:right;white-space:nowrap}.tablewrap{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:13px}th,td{text-align:left;padding:11px 9px;border-bottom:1px solid var(--line);white-space:nowrap}th{color:var(--muted);font-weight:750}.empty{padding:24px 10px;text-align:center;color:var(--muted)}.hidden{display:none!important}.notice{padding:12px;border-radius:12px;background:var(--accent2);margin:12px 0;font-size:13px}.notice.error{background:color-mix(in srgb,var(--bad) 12%,var(--panel));color:var(--bad)}.toast{position:fixed;bottom:calc(20px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);background:var(--text);color:var(--panel);padding:12px 17px;border-radius:12px;z-index:10;box-shadow:var(--shadow);max-width:90vw}.bottomadd{position:fixed;bottom:calc(14px + env(safe-area-inset-bottom));right:16px;z-index:4;box-shadow:0 8px 22px #315ce83d;border-radius:999px;padding:15px 19px}.subnav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}.subnav input,.subnav select{width:auto;min-width:140px}.divider{border:0;border-top:1px solid var(--line);margin:16px 0}.checkline{display:flex;align-items:center;gap:9px;margin-top:12px}.checkline input{width:18px;min-height:18px}
+@media(max-width:640px){.span6,.span4{grid-column:span 12}.wrap{padding:13px 10px 100px}.card{padding:15px}.formgrid{gap:10px}.metrics{gap:8px}.brand{font-size:16px}.head button{padding:10px}.record .right{font-size:13px}}
+</style>
+</head>
+<body>
+<header><div class="head"><div class="brand">Office Hours Tracker<small>Personal attendance ledger</small></div><div style="display:flex;gap:6px;align-items:center"><button class="secondary hidden" id="installBtn">Install app</button><button class="ghost" id="themeBtn" aria-label="Toggle theme">☾ Theme</button></div></div></header>
+<main class="wrap">
+<nav class="nav" aria-label="Main navigation"><button class="active" data-page="dashboard">Dashboard</button><button data-page="attendance">Attendance</button><button data-page="reports">Reports</button><button data-page="settings">Settings</button></nav>
+<section id="dashboard" class="page">
+<div class="grid">
+<div class="card span6">
+<div class="row"><div class="eyebrow">This week · Mon–Sun</div><span id="weekStatus" class="status">Below Requirement</span></div>
+<div class="big" id="weekHours">0h 00m</div><div class="muted small"><span id="weekTarget">of 40h 00m</span> actual working time</div>
+<div class="progress" aria-label="Weekly target progress"><div id="weekProgress"></div></div>
+<div class="row small"><span id="weekPct">0% complete</span><span id="weekRemaining">40h 00m remaining</span></div>
+<div class="metrics"><div class="metric"><span class="muted small">Completed days</span><strong id="weekDays">0</strong></div><div class="metric"><span class="muted small">Additional hours</span><strong id="weekSurplus">0h 00m</strong></div></div>
+<div id="weekVerification" class="notice">Pending verification until all relevant records are complete.</div>
+</div>
+<div class="card span6">
+<div class="eyebrow">Today's attendance</div><div class="big" id="todayHours">—</div><div class="muted small" id="todaySub">No attendance recorded for today.</div>
+<div class="metrics"><div class="metric"><span class="muted small">Entry</span><strong id="todayIn">—</strong></div><div class="metric"><span class="muted small">Exit</span><strong id="todayOut">—</strong></div><div class="metric"><span class="muted small">Office presence</span><strong id="todayGross">—</strong></div><div class="metric"><span class="muted small">Break</span><strong id="todayBreak">0h 00m</strong></div></div>
+<div class="actions"><button class="primary" id="addToday">＋ Add Today's Attendance</button></div>
+</div>
+<div class="card"><div class="row"><h2 class="sectiontitle">Recent attendance</h2><button class="secondary" id="viewAll">View all</button></div><div id="recentList" class="list"></div></div>
+</div></section>
+<section id="attendance" class="page hidden">
+<div class="card">
+<div class="row"><h2 class="sectiontitle">Attendance history</h2><button class="primary" id="newRecord">＋ Add record</button></div>
+<div class="subnav"><input type="month" id="historyMonth" aria-label="Filter month"><select id="historyView" aria-label="View mode"><option value="list">List view</option><option value="calendar">Calendar view</option></select><button class="ghost" id="clearFilter">Clear filter</button></div>
+<div id="historyContent"></div>
+</div></section>
+<section id="reports" class="page hidden">
+<div class="card"><h2 class="sectiontitle">Weekly report</h2><div class="subnav"><button class="ghost" id="prevWeek">← Previous week</button><input type="date" id="reportWeekDate" aria-label="Select date in week"><button class="ghost" id="nextWeek">Next week →</button></div><div id="weeklyReport"></div></div>
+<div class="card" style="margin-top:14px"><h2 class="sectiontitle">Monthly report</h2><div class="subnav"><input type="month" id="reportMonth" aria-label="Select report month"></div><div id="monthlyReport"></div></div>
+</section>
+<section id="settings" class="page hidden">
+<div class="card"><h2 class="sectiontitle">Settings & data</h2><p class="muted">Your records are stored locally in this browser on this device. Clearing browser/site data or using another browser can remove or hide them, so export regular backups.</p>
+<div class="actions"><button class="primary" id="exportCsv">Export CSV</button><button class="secondary" id="importCsvBtn">Import CSV</button><input type="file" id="importCsvFile" accept=".csv,text/csv" class="hidden"><button class="secondary" id="backupJson">Download backup</button><button class="secondary" id="restoreBtn">Restore backup</button><input type="file" id="restoreFile" accept="application/json,.json" class="hidden"></div>
+<hr class="divider"><div class="row"><div><strong>Appearance</strong><div class="muted small">Switch between light and dark themes.</div></div><button class="ghost" id="themeBtn2">Toggle theme</button></div>
+<hr class="divider"><div><strong>Calculation rules</strong><p class="muted small">Weekly target: 40 actual hours. Week runs Monday–Sunday. Breaks are deducted only when entered manually. A daily 8-hour minimum is not enforced. Incomplete records are excluded from totals and marked for verification.</p></div>
+<hr class="divider"><button class="danger" id="deleteAll">Delete all attendance data</button></div>
+</section>
+</main>
+<button class="primary bottomadd" id="floatingAdd">＋ Add attendance</button>
+<div id="editor" class="hidden" role="dialog" aria-modal="true" aria-labelledby="editorTitle" style="position:fixed;inset:0;z-index:20;background:#0008;overflow:auto;padding:18px 10px">
+<div class="card" style="max-width:600px;margin:20px auto">
+<div class="row"><h2 id="editorTitle" class="sectiontitle">Add attendance</h2><button class="ghost" id="closeEditor" aria-label="Close">✕</button></div>
+<form id="attendanceForm">
+<div class="formgrid">
+<div class="field"><label for="date">Attendance date</label><input id="date" type="date" required></div>
+<div class="field"><label for="breakHours">Break hours</label><input id="breakHours" type="number" min="0" max="999" step="1" value="0" inputmode="numeric"></div>
+<div class="field"><label for="entry">Office entry time</label><input id="entry" type="time" required></div>
+<div class="field"><label for="breakMinutes">Break minutes</label><input id="breakMinutes" type="number" min="0" max="59" step="1" value="0" inputmode="numeric"></div>
+<div class="field"><label for="exit">Office exit time</label><input id="exit" type="time"></div>
+<div class="field"><label for="recordNote">Note (optional)</label><input id="recordNote" type="text" maxlength="160" placeholder="e.g. corrected entry"></div>
+</div>
+<div class="checkline"><input id="overnight" type="checkbox"><label for="overnight" style="margin:0">Session crossed midnight (exit is on the following day)</label></div>
+<div id="formMessage" class="notice hidden"></div><div id="calcPreview" class="notice">Enter an entry time and exit time to preview calculations.</div>
+<div class="actions"><button type="submit" class="primary" id="saveBtn">Save attendance</button><button type="button" class="secondary" id="saveDraft">Save as incomplete draft</button><button type="button" class="danger hidden" id="deleteRecord">Delete record</button></div>
+<p class="muted small">An empty exit time is saved only as an incomplete draft and is not counted as completed work. Breaks must not exceed the elapsed office presence.</p>
+</form>
+</div></div><div id="toast" class="toast hidden" role="status"></div>
+<script>
+(() => {
+'use strict';
+const KEY='office-hours-tracker-v1', THEME='office-hours-theme';
+const $=id=>document.getElementById(id);
+let records=[], editingId=null, activePage='dashboard', toastTimer=null;
+const pad=n=>String(n).padStart(2,'0');
+const todayISO=()=>{const d=new Date();return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`};
+const parseDate=s=>{const [y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d,12,0,0,0)};
+const dateISO=d=>`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+const fmtDate=s=>s?parseDate(s).toLocaleDateString(undefined,{weekday:'short',month:'short',day:'numeric',year:'numeric'}):'—';
+const fmtTime=s=>s?(()=>{const [h,m]=s.split(':').map(Number);const d=new Date(2000,0,1,h,m);return d.toLocaleTimeString(undefined,{hour:'numeric',minute:'2-digit'})})():'—';
+const minsLabel=n=>{n=Math.max(0,Math.round(n));return `${Math.floor(n/60)}h ${pad(n%60)}m`};
+const escapeHTML=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function load(){try{const raw=localStorage.getItem(KEY);const parsed=raw?JSON.parse(raw):[];records=Array.isArray(parsed)?parsed.filter(r=>r&&r.date&&r.id):[]}catch(e){records=[];notify('Could not read saved data. Restore from a backup if available.')} }
+function persist(){try{localStorage.setItem(KEY,JSON.stringify(records));return true}catch(e){notify('Storage failed. Export a backup and free browser storage.');return false}}
+function notify(s){const el=$('toast');el.textContent=s;el.classList.remove('hidden');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.add('hidden'),2800)}
+function minutesOf(r){if(!r.exit||!r.entry||r.status!=='completed')return null;const [eh,em]=r.entry.split(':').map(Number),[xh,xm]=r.exit.split(':').map(Number);let gross=(xh*60+xm)-(eh*60+em);if(r.overnight)gross+=1440;if(gross<0)return null;return gross-Number(r.breakMinutes||0)}
+function grossOf(r){if(!r.exit||!r.entry)return null;const [eh,em]=r.entry.split(':').map(Number),[xh,xm]=r.exit.split(':').map(Number);let n=xh*60+xm-eh*60-em;if(r.overnight)n+=1440;return n>=0?n:null}
+function startStamp(r){return parseDate(r.date).getTime()+(Number(r.entry?.slice(0,2)||0)*60+Number(r.entry?.slice(3,5)||0))*60000}
+function weekStart(date){const d=new Date(date.getFullYear(),date.getMonth(),date.getDate(),12);const day=(d.getDay()+6)%7;d.setDate(d.getDate()-day);return d}
+function weekRange(s){const e=new Date(s);e.setDate(e.getDate()+6);return {start:dateISO(s),end:dateISO(e)}}
+function inWeek(r,s,e){return r.date>=s&&r.date<=e}
+function sortRecords(arr){return [...arr].sort((a,b)=>b.date.localeCompare(a.date)||(b.entry||'').localeCompare(a.entry||''))}
+function isIssue(r){return r.status!=='completed'||!r.exit||grossOf(r)===null||minutesOf(r)<0||r.needsReview}
+function totals(arr){const valid=arr.filter(r=>!isIssue(r));return {gross:valid.reduce((s,r)=>s+grossOf(r),0),breaks:valid.reduce((s,r)=>s+Number(r.breakMinutes||0),0),actual:valid.reduce((s,r)=>s+minutesOf(r),0),days:new Set(valid.map(r=>r.date)).size,issues:arr.filter(isIssue).length,records:arr.length}}
+function statusFor(t){if(t.issues)return ['Pending Verification','warn'];if(t.actual<2400)return ['Below Requirement','bad'];if(t.actual===2400)return ['Requirement Met','good'];return ['Requirement Exceeded','good']}
+function recordStatus(r){if(r.status!=='completed'||!r.exit)return ['Incomplete draft','warn'];if(r.needsReview)return ['Review needed','warn'];if(grossOf(r)===null)return ['Invalid time order','bad'];if(minutesOf(r)<0)return ['Break exceeds presence','bad'];return ['Completed','good']}
+function validCompleted(r){return r.status==='completed'&&r.exit&&grossOf(r)!==null&&minutesOf(r)>=0&&!r.needsReview}
+function recordsInWeek(s){const {start,end}=weekRange(s);return records.filter(r=>inWeek(r,start,end))}
+function setPage(page){activePage=page;document.querySelectorAll('.page').forEach(p=>p.classList.toggle('hidden',p.id!==page));document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===page));$('floatingAdd').classList.toggle('hidden',page==='settings');if(page==='attendance')renderHistory();if(page==='reports')renderReports()}
+function renderDashboard(){const now=parseDate(todayISO()),s=weekStart(now),range=weekRange(s),week=records.filter(r=>inWeek(r,range.start,range.end)),t=totals(week);$('weekHours').textContent=minsLabel(t.actual);$('weekTarget').textContent='of 40h 00m';$('weekPct').textContent=`${Math.round(t.actual/2400*1000)/10}% complete`;$('weekProgress').style.width=`${Math.min(100,t.actual/2400*100)}%`;$('weekRemaining').textContent=`${minsLabel(Math.max(0,2400-t.actual))} remaining`;$('weekDays').textContent=t.days;$('weekSurplus').textContent=minsLabel(Math.max(0,t.actual-2400));const [st,cl]=statusFor(t);$('weekStatus').textContent=st;$('weekStatus').className='status '+cl;$('weekVerification').textContent=t.issues?`${t.issues} incomplete or review-needed record(s). Calculated completed time is shown separately; weekly verification is pending.`:'All recorded attendance entries for this week are complete and valid.';$('weekVerification').className='notice'+(t.issues?' error':'');
+const today=records.filter(r=>r.date===todayISO()).sort((a,b)=>(b.entry||'').localeCompare(a.entry||''))[0];$('todayHours').textContent=today&&validCompleted(today)?minsLabel(minutesOf(today)):'—';$('todaySub').textContent=today?(recordStatus(today)[0]):'No attendance recorded for today.';$('todayIn').textContent=today?fmtTime(today.entry):'—';$('todayOut').textContent=today?fmtTime(today.exit):'—';$('todayGross').textContent=today&&grossOf(today)!==null?minsLabel(grossOf(today)):'—';$('todayBreak').textContent=minsLabel(Number(today?.breakMinutes||0));const recent=sortRecords(records).slice(0,7);$('recentList').innerHTML=recent.length?recent.map(r=>recordHTML(r)).join(''):'<div class="empty">No attendance yet. Add your first record above.</div>';bindRecordClicks($('recentList'))}
+function recordHTML(r){const [st,cl]=recordStatus(r);return `<div class="record" role="button" tabindex="0" data-id="${escapeHTML(r.id)}"><div><strong>${escapeHTML(fmtDate(r.date))}</strong><div class="muted small">${escapeHTML(fmtTime(r.entry))} – ${escapeHTML(fmtTime(r.exit))} · break ${minsLabel(Number(r.breakMinutes||0))}</div><span class="status ${cl}">${st}</span></div><div class="right"><strong>${validCompleted(r)?minsLabel(minutesOf(r)):'—'}</strong><div class="muted small">${validCompleted(r)?'actual time':'not counted'}</div></div></div>`}
+function bindRecordClicks(root){root.querySelectorAll('[data-id]').forEach(el=>{const fn=()=>openEditor(el.dataset.id);el.addEventListener('click',fn);el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();fn()}})})}
+function openEditor(id=null,date=todayISO()){editingId=id;const r=id?records.find(x=>x.id===id):null;$('editorTitle').textContent=r?'Edit attendance':'Add attendance';$('date').value=r?.date||date;$('entry').value=r?.entry||'';$('exit').value=r?.exit||'';$('breakHours').value=Math.floor(Number(r?.breakMinutes||0)/60);$('breakMinutes').value=Number(r?.breakMinutes||0)%60;$('recordNote').value=r?.note||'';$('overnight').checked=!!r?.overnight;$('deleteRecord').classList.toggle('hidden',!r);$('formMessage').classList.add('hidden');$('editor').classList.remove('hidden');preview();setTimeout(()=>$('entry').focus(),50)}
+function closeEditor(){$('editor').classList.add('hidden');editingId=null}
+function readForm(forceDraft=false){const date=$('date').value,entry=$('entry').value,exit=$('exit').value;const bh=Number($('breakHours').value||0),bm=Number($('breakMinutes').value||0),br=bh*60+bm,overnight=$('overnight').checked;const errors=[];if(!date)errors.push('Choose an attendance date.');if(!entry)errors.push('Office entry time is required.');if(!Number.isInteger(bh)||bh<0||bh>999)errors.push('Break hours must be a non-negative whole number.');if(!Number.isInteger(bm)||bm<0||bm>59)errors.push('Break minutes must be between 0 and 59.');if(exit&&!overnight&&exit<entry)errors.push('Exit is earlier than entry. Select “Session crossed midnight” if correct, or fix the times.');if(exit&&overnight&&exit>entry)errors.push('For a session crossing midnight, the next-day exit time should be earlier than the entry time.');if(!exit&&!forceDraft)errors.push('Exit time is missing. Save as an incomplete draft, or enter an exit time.');const same=records.find(r=>r.date===date&&r.id!==editingId);if(same)errors.push(`A record already exists for ${fmtDate(date)}. Open that record to edit it; only one record per attendance date is allowed.`);let gross=null,actual=null;if(exit&&entry&&!errors.some(e=>e.includes('earlier')||e.includes('crossing midnight'))){gross=(Number(exit.slice(0,2))*60+Number(exit.slice(3,5)))-(Number(entry.slice(0,2))*60+Number(entry.slice(3,5)))+(overnight?1440:0);actual=gross-br;if(gross<=0)errors.push('Elapsed office presence must be greater than zero. Check the times.');if(actual<0)errors.push('Break duration cannot exceed office presence.');}return {date,entry,exit,breakMinutes:br,overnight,note:$('recordNote').value.trim(),errors,gross,actual,status:exit&&!forceDraft?'completed':'incomplete'}}
+function preview(){const data=readForm(true);const msg=$('formMessage');if(data.errors.length){msg.textContent=data.errors.join(' ');msg.classList.remove('hidden');msg.classList.add('error')}else{msg.classList.add('hidden')}if(data.exit&&data.gross!==null&&data.gross>0&&data.actual>=0){$('calcPreview').textContent=`Office presence: ${minsLabel(data.gross)} · Break: ${minsLabel(data.breakMinutes)} · Actual working time: ${minsLabel(data.actual)}`}else if(!data.exit){$('calcPreview').textContent='Draft only: without an exit time, actual working time is not calculated or counted.'}else{$('calcPreview').textContent='Correct the time or break values to preview a valid calculation.'}}
+function saveRecord(draft){const d=readForm(draft);const hard=d.errors.filter(e=>!(draft&&e==='Exit time is missing.'));if(hard.length){$('formMessage').textContent=hard.join(' ');$('formMessage').classList.remove('hidden');$('formMessage').classList.add('error');return}const prior=editingId?records.find(r=>r.id===editingId):null;const r={id:editingId||('att-'+Date.now()+'-'+Math.random().toString(36).slice(2,8)),date:d.date,entry:d.entry,exit:d.exit||'',breakMinutes:d.breakMinutes,overnight:d.overnight,note:d.note,status:d.exit&&!draft?'completed':'incomplete',needsReview:false,createdAt:prior?.createdAt||new Date().toISOString(),modifiedAt:new Date().toISOString()};if(d.exit&&d.overnight){const [eh,em]=d.entry.split(':').map(Number),[xh,xm]=d.exit.split(':').map(Number);if(xh*60+xm>=eh*60+em){notify('Check overnight times: exit should normally be earlier than entry.');return}r.needsReview=true}if(prior)records=records.map(x=>x.id===r.id?r:x);else records.push(r);if(!persist())return;closeEditor();renderAll();notify(draft?'Incomplete draft saved.':'Attendance saved: '+minsLabel(d.actual))}
+function renderHistory(){const month=$('historyMonth').value,view=$('historyView').value;let arr=sortRecords(records.filter(r=>!month||r.date.startsWith(month)));if(!arr.length){$('historyContent').innerHTML='<div class="empty">No records for this filter.</div>';return}if(view==='calendar'){const monthValue=month||todayISO().slice(0,7),[y,m]=monthValue.split('-').map(Number),first=new Date(y,m-1,1,12),start=new Date(first);start.setDate(1-((first.getDay()+6)%7));let cells='';for(let i=0;i<42;i++){const d=new Date(start);d.setDate(start.getDate()+i);const ds=dateISO(d),r=records.find(x=>x.date===ds);cells+=`<div class="metric" style="min-height:75px;cursor:${r?'pointer':'default'};opacity:${d.getMonth()===m-1?1:.45}" ${r?`data-id="${escapeHTML(r.id)}"`:''}><span class="muted small">${d.getDate()}</span><strong style="font-size:13px">${r?(validCompleted(r)?minsLabel(minutesOf(r)):'Draft'):'—'}</strong></div>`}$('historyContent').innerHTML=`<div class="grid" style="grid-template-columns:repeat(7,minmax(0,1fr));gap:6px">${['Mon','Tue','Wed','Thu','Fri','Sat','Sun'].map(x=>`<div class="eyebrow" style="text-align:center">${x}</div>`).join('')}${cells}</div><p class="muted small">Tap a day with a record to edit it. Calendar displays at most one record per date.</p>`;bindRecordClicks($('historyContent'));return}
+$('historyContent').innerHTML=arr.map(r=>`<div>${recordHTML(r)}<div class="muted small" style="padding:0 0 8px">Gross ${grossOf(r)!==null?minsLabel(grossOf(r)):'—'} · Modified ${new Date(r.modifiedAt||r.createdAt).toLocaleString()}</div></div>`).join('');bindRecordClicks($('historyContent'))}
+function renderReports(){const date=$('reportWeekDate').value||todayISO(),s=weekStart(parseDate(date)),range=weekRange(s),arr=records.filter(r=>inWeek(r,range.start,range.end)),t=totals(arr),[st,cl]=statusFor(t);$('weeklyReport').innerHTML=`<div class="row"><div><div class="eyebrow">${fmtDate(range.start)} – ${fmtDate(range.end)}</div><div class="big">${minsLabel(t.actual)}</div><div class="muted small">Actual time counted toward 40h target</div></div><span class="status ${cl}">${st}</span></div><div class="progress"><div style="width:${Math.min(100,t.actual/2400*100)}%"></div></div><div class="metrics"><div class="metric"><span class="muted small">Office presence</span><strong>${minsLabel(t.gross)}</strong></div><div class="metric"><span class="muted small">Recorded breaks</span><strong>${minsLabel(t.breaks)}</strong></div><div class="metric"><span class="muted small">Remaining</span><strong>${minsLabel(Math.max(0,2400-t.actual))}</strong></div><div class="metric"><span class="muted small">Surplus</span><strong>${minsLabel(Math.max(0,t.actual-2400))}</strong></div><div class="metric"><span class="muted small">Completed days</span><strong>${t.days}</strong></div><div class="metric"><span class="muted small">Daily average</span><strong>${t.days?minsLabel(Math.floor(t.actual/t.days)):'0h 00m'}</strong></div></div><p class="muted small">${t.issues} incomplete or review-needed record(s). ${t.issues?'Weekly verification is pending.':'All recorded entries in this week are complete and valid.'}</p><div class="tablewrap"><table><thead><tr><th>Date</th><th>Entry</th><th>Exit</th><th>Presence</th><th>Break</th><th>Actual</th><th>Status</th></tr></thead><tbody>${arr.sort((a,b)=>a.date.localeCompare(b.date)).map(r=>`<tr><td>${escapeHTML(r.date)}</td><td>${escapeHTML(fmtTime(r.entry))}</td><td>${escapeHTML(fmtTime(r.exit))}</td><td>${grossOf(r)!==null?minsLabel(grossOf(r)):'—'}</td><td>${minsLabel(Number(r.breakMinutes||0))}</td><td>${validCompleted(r)?minsLabel(minutesOf(r)):'—'}</td><td>${recordStatus(r)[0]}</td></tr>`).join('')||'<tr><td colspan="7">No attendance records in this week.</td></tr>'}</tbody></table></div>`;
+const month=$('reportMonth').value||todayISO().slice(0,7),mar=records.filter(r=>r.date.startsWith(month)),mt=totals(mar);const weekMap=new Map();mar.forEach(r=>{const key=dateISO(weekStart(parseDate(r.date)));if(!weekMap.has(key))weekMap.set(key,[]);weekMap.get(key).push(r)});const wrows=[...weekMap.entries()].sort((a,b)=>a[0].localeCompare(b[0])).map(([k,rs])=>{const wt=totals(rs),[ws,wc]=statusFor(wt);return `<tr><td>${escapeHTML(k)}</td><td>${minsLabel(wt.actual)}</td><td>${wt.days}</td><td><span class="status ${wc}">${ws}</span></td></tr>`}).join('');$('monthlyReport').innerHTML=`<div class="big">${minsLabel(mt.actual)}</div><div class="muted small">${month} · actual working time</div><div class="metrics"><div class="metric"><span class="muted small">Completed days</span><strong>${mt.days}</strong></div><div class="metric"><span class="muted small">Office presence</span><strong>${minsLabel(mt.gross)}</strong></div><div class="metric"><span class="muted small">Recorded breaks</span><strong>${minsLabel(mt.breaks)}</strong></div><div class="metric"><span class="muted small">Incomplete/review</span><strong>${mt.issues}</strong></div></div><hr class="divider"><div class="tablewrap"><table><thead><tr><th>Week starting</th><th>Actual hours</th><th>Days</th><th>Compliance</th></tr></thead><tbody>${wrows||'<tr><td colspan="4">No weekly totals yet.</td></tr>'}</tbody></table></div><p class="muted small">Weeks are grouped by Monday start date. A week crossing a month boundary is shown here based on records dated in this month; see the weekly report for the full Monday–Sunday total.</p>`}
+function renderAll(){renderDashboard();if(activePage==='attendance')renderHistory();if(activePage==='reports')renderReports()}
+function download(name,content,type){const blob=new Blob([content],{type}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000)}
+function exportCSV(){const cols=['date','entry','exit','grossMinutes','breakMinutes','actualMinutes','status','overnight','note','createdAt','modifiedAt'];const lines=[cols.join(','),...sortRecords(records).map(r=>cols.map(k=>{let v=k==='grossMinutes'?(grossOf(r)??''):k==='actualMinutes'?(validCompleted(r)?minutesOf(r):''):r[k]??'';return '"'+String(v).replace(/"/g,'""')+'"'}).join(','))];download('office-hours-'+todayISO()+'.csv',lines.join('\r\n'),'text/csv;charset=utf-8')}
+function backup(){download('office-hours-backup-'+todayISO()+'.json',JSON.stringify({app:'Office Hours Tracker',version:1,exportedAt:new Date().toISOString(),records},null,2),'application/json')}
+
+function parseCSV(text){
+  const rows=[]; let row=[], field='', quoted=false;
+  for(let i=0;i<text.length;i++){
+    const c=text[i];
+    if(quoted){
+      if(c==='"'&&text[i+1]==='"'){field+='"';i++;}
+      else if(c==='"')quoted=false;
+      else field+=c;
+    }else{
+      if(c==='"')quoted=true;
+      else if(c===','){row.push(field);field='';}
+      else if(c==='\n'){row.push(field.replace(/\r$/,''));rows.push(row);row=[];field='';}
+      else field+=c;
+    }
+  }
+  if(quoted) throw Error('CSV has an unclosed quoted field.');
+  if(field.length||row.length){row.push(field.replace(/\r$/,''));rows.push(row);}
+  return rows.filter(r=>r.some(v=>String(v).trim()!==''));
+}
+function parseImportedCSV(text){
+  const rows=parseCSV(text);
+  if(rows.length<2) throw Error('CSV does not contain any attendance rows.');
+  const headers=rows[0].map(h=>h.trim().replace(/^﻿/,'').toLowerCase());
+  const idx={};headers.forEach((h,i)=>idx[h]=i);
+  const get=(row,...names)=>{for(const n of names){if(idx[n]!==undefined)return String(row[idx[n]]??'').trim()}return ''};
+  if(idx.date===undefined||idx.entry===undefined||idx.exit===undefined) throw Error('CSV must include date, entry and exit columns. Please import a CSV exported by Office Hours Tracker.');
+  const imported=[], issues=[], seen=new Set();
+  rows.slice(1).forEach((row,i)=>{
+    const line=i+2;
+    const date=get(row,'date'),entry=get(row,'entry'),exit=get(row,'exit');
+    if(!date){issues.push(`Row ${line}: missing date; skipped.`);return;}
+    if(!/^\d{4}-\d{2}-\d{2}$/.test(date)||Number.isNaN(parseDate(date).getTime())){issues.push(`Row ${line}: invalid date "${date}"; skipped.`);return;}
+    if(!/^\d{2}:\d{2}$/.test(entry)||Number(entry.slice(0,2))>23||Number(entry.slice(3,5))>59){issues.push(`Row ${line}: invalid entry time; skipped.`);return;}
+    if(exit&&!(/^\d{2}:\d{2}$/.test(exit))){issues.push(`Row ${line}: invalid exit time; skipped.`);return;}
+    const brRaw=get(row,'breakMinutes','breakminutes');
+    const br=brRaw===''?0:Number(brRaw);
+    if(!Number.isInteger(br)||br<0){issues.push(`Row ${line}: invalid break duration; skipped.`);return;}
+    const overnightRaw=get(row,'overnight').toLowerCase();
+    const overnight=['true','1','yes','y'].includes(overnightRaw);
+    const statusRaw=get(row,'status').toLowerCase();
+    const status=exit&&statusRaw!=='incomplete'?'completed':'incomplete';
+    if(seen.has(date)){issues.push(`Row ${line}: duplicate date ${date}; later duplicate skipped.`);return;}
+    seen.add(date);
+    const r={id:'att-import-'+date+'-'+Math.random().toString(36).slice(2,8),date,entry,exit,breakMinutes:br,overnight,note:get(row,'note'),status,needsReview:false,createdAt:get(row,'createdAt')||new Date().toISOString(),modifiedAt:get(row,'modifiedAt')||new Date().toISOString()};
+    if(status==='completed'){
+      const gross=grossOf(r);
+      if(gross===null||gross<=0||br>gross){r.needsReview=true;issues.push(`Row ${line}: time order or break needs review; imported but excluded from totals until corrected.`);}
+    }
+    imported.push(r);
+  });
+  return {records:imported,issues};
+}
+function importCSVFile(file){
+  const reader=new FileReader();
+  reader.onload=()=>{
+    try{
+      const parsed=parseImportedCSV(String(reader.result||''));
+      if(!parsed.records.length)throw Error('No valid attendance rows could be imported.');
+      const conflicts=parsed.records.filter(r=>records.some(old=>old.date===r.date));
+      const summary=`Found ${parsed.records.length} valid row(s). ${conflicts.length} date conflict(s) with existing records.\\n\\nChoose OK to import and replace records on matching dates, or Cancel to keep existing records and import only new dates.`;
+      const replace=conflicts.length?confirm(summary):false;
+      const incoming=parsed.records.filter(r=>replace||!records.some(old=>old.date===r.date));
+      if(!incoming.length){notify('Nothing imported; existing records were kept.');return;}
+      const ids=new Set(incoming.map(r=>r.date));
+      records=records.filter(old=>!ids.has(old.date)).concat(incoming);
+      if(!persist())return;
+      renderAll();
+      const report=`Imported ${incoming.length} record(s).`+(parsed.issues.length?` ${parsed.issues.length} row warning(s).`:'');
+      notify(report);
+      if(parsed.issues.length)alert(report+'\\n\\n'+parsed.issues.slice(0,20).join('\\n')+(parsed.issues.length>20?'\\n…':''));
+      else alert(report);
+    }catch(err){alert('CSV import failed: '+err.message)}
+    finally{$('importCsvFile').value=''}
+  };
+  reader.onerror=()=>alert('Could not read this CSV file.');
+  reader.readAsText(file);
+}
+
+function applyTheme(){const dark=localStorage.getItem(THEME)==='dark';document.documentElement.dataset.theme=dark?'dark':'light';$('themeBtn').textContent=dark?'☀ Light':'☾ Theme'}
+function toggleTheme(){localStorage.setItem(THEME,localStorage.getItem(THEME)==='dark'?'light':'dark');applyTheme()}
+document.querySelectorAll('.nav button').forEach(b=>b.addEventListener('click',()=>setPage(b.dataset.page)));
+$('addToday').onclick=()=>openEditor(null,todayISO());$('newRecord').onclick=()=>openEditor();$('floatingAdd').onclick=()=>openEditor();$('viewAll').onclick=()=>setPage('attendance');$('closeEditor').onclick=closeEditor;
+['date','entry','exit','breakHours','breakMinutes','overnight'].forEach(id=>$(id).addEventListener('input',preview));
+$('attendanceForm').addEventListener('submit',e=>{e.preventDefault();saveRecord(false)});$('saveDraft').onclick=()=>saveRecord(true);
+$('deleteRecord').onclick=()=>{if(!editingId)return;if(confirm('Delete this attendance record permanently?')){records=records.filter(r=>r.id!==editingId);persist();closeEditor();renderAll();notify('Record deleted.')}};
+$('historyMonth').value=todayISO().slice(0,7);$('historyMonth').onchange=renderHistory;$('historyView').onchange=renderHistory;$('clearFilter').onclick=()=>{$('historyMonth').value='';renderHistory()};
+$('reportWeekDate').value=todayISO();$('reportMonth').value=todayISO().slice(0,7);$('reportWeekDate').onchange=renderReports;$('reportMonth').onchange=renderReports;
+$('prevWeek').onclick=()=>{const d=parseDate($('reportWeekDate').value||todayISO());d.setDate(d.getDate()-7);$('reportWeekDate').value=dateISO(d);renderReports()};$('nextWeek').onclick=()=>{const d=parseDate($('reportWeekDate').value||todayISO());d.setDate(d.getDate()+7);$('reportWeekDate').value=dateISO(d);renderReports()};
+$('exportCsv').onclick=exportCSV;$('importCsvBtn').onclick=()=>$('importCsvFile').click();$('importCsvFile').onchange=e=>{const f=e.target.files[0];if(f)importCSVFile(f)};$('backupJson').onclick=backup;$('restoreBtn').onclick=()=>$('restoreFile').click();$('restoreFile').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const obj=JSON.parse(await f.text()),arr=Array.isArray(obj)?obj:obj.records;if(!Array.isArray(arr)||arr.some(r=>!r||!r.id||!r.date))throw Error('Invalid backup');if(!confirm(`Restore ${arr.length} records? This replaces the current attendance data.`))return;const seen=new Set();for(const r of arr){if(seen.has(r.date))throw Error('Backup contains duplicate dates. Resolve duplicates before restoring.');seen.add(r.date)}records=arr;persist();renderAll();notify('Backup restored.')}catch(err){alert('Could not restore backup: '+err.message)}finally{$('restoreFile').value=''}};
+$('deleteAll').onclick=()=>{if(confirm('Delete ALL attendance records from this browser? Export a backup first if you may need these records.')){records=[];persist();renderAll();notify('All attendance data deleted.')}};
+$('themeBtn').onclick=toggleTheme;$('themeBtn2').onclick=toggleTheme;
+$('editor').addEventListener('click',e=>{if(e.target===$('editor'))closeEditor()});document.addEventListener('keydown',e=>{if(e.key==='Escape')closeEditor()});
+load();applyTheme();renderAll();
+let deferredInstallPrompt = null;
+const installBtn = document.getElementById('installBtn');
+window.addEventListener('beforeinstallprompt', (event) => {
+  event.preventDefault();
+  deferredInstallPrompt = event;
+  installBtn.classList.remove('hidden');
+});
+installBtn.addEventListener('click', async () => {
+  if (!deferredInstallPrompt) return;
+  deferredInstallPrompt.prompt();
+  await deferredInstallPrompt.userChoice;
+  deferredInstallPrompt = null;
+  installBtn.classList.add('hidden');
+});
+window.addEventListener('appinstalled', () => {
+  installBtn.classList.add('hidden');
+  notify('Office Hours Tracker installed.');
+});
+if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) {
+  window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(() => {}));
+}
+// Lightweight calculation tests for the required scenarios.
+function runTests(){const test=(name,got,want)=>({name,pass:got===want,got,want});const calc=(a,b,br=0,overnight=false)=>{let [h,m]=a.split(':').map(Number),[x,y]=b.split(':').map(Number),g=x*60+y-h*60-m+(overnight?1440:0);return g-br};const tests=[test('08:00–17:00 less 1h',calc('08:00','17:00',60),480),test('08:30–16:30 no break',calc('08:30','16:30'),480),test('five 8-hour days',5*480,2400),test('35h leaves 5h',Math.max(0,2400-2100),300),test('39h59 leaves 1m',Math.max(0,2400-2399),1),test('42h surplus 2h',Math.max(0,2520-2400),120),test('sub-8h day has no daily rule',calc('09:00','16:00',30),390),test('overnight 22:00–06:00',calc('22:00','06:00',0,true),480)];return tests}
+window.officeHoursTrackerTests=runTests;
+})();
+</script>
+</body></html>
